@@ -1,5 +1,5 @@
 <template>
-  <div class="anew container">
+  <div class="new container">
     <h1 class="page-header">New Event</h1>
     <form v-on:submit="createEvent">
 
@@ -29,7 +29,9 @@
         <label>Event Descriptionn</label>
         <input type="text" name="description" placeholder="Description" v-model="event.description">
       </div>
+
       <button type="submit" class="button btn-primary">Submit</button>
+
     </form>
   </div>
 </template>
@@ -59,7 +61,7 @@ export default {
 
         this.$http.post('http://localhost:7000/api/events', newEvent)
         .then(function(response) {
-          this.$router.push({path: '/'});  
+          this.$router.push({path: '/', query: { alert: 'Event Added' }});
         });
         e.preventDefault();
       }

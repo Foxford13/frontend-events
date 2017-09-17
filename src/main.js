@@ -14,6 +14,7 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Events from './components/Events'
 import About from './components/About'
 import New from './components/New'
+import Show from './components/Show'
 
 
 Vue.use(VueResource)
@@ -29,7 +30,8 @@ const router = new VueRouter({
   routes: [
     {path: '/', component: Events},
     {path: '/about', component: About},
-    {path: '/new', component: New}
+    {path: '/new', component: New},
+    {path: '/event/:id', component: Show},
   ]
 })
 
