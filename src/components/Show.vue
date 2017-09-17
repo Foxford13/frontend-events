@@ -5,6 +5,9 @@
     <p>To: {{event.dateTo.split('T')[0]}}</p>
     <p>{{event.location}}</p>
     <p>{{event.description}}</p>
+    <p>{{event.id}}</p>
+    <button v-on:click="deleteEvent(event.id)" class="btn btn-danger" type="button" name="button">Delete</button>
+    <router-link class="btn btn-primary" onloadedmetadata=""v-bind:to="'/edit/' + event.id">Edit</router-link>
   </div>
 </template>
 
@@ -13,7 +16,7 @@ export default {
   name: 'show',
   data () {
     return {
-      event: ''
+      event: {dateFrom: '', dateTo: ''}
     }
   },
   methods: {
@@ -22,6 +25,14 @@ export default {
       .then(function(response){
         this.event = response.body;
       });
+    },
+    deleteEvent(id) {
+      console.log(222);
+      this.$http.delete('http://localhost:7000/api/events/' + id)
+      .then(function(response){
+        this.$router.push({path: '/', query: {alert: 'Event Deleted'}})
+      });
+
     }
   },
   created: function() {

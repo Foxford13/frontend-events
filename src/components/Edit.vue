@@ -1,7 +1,7 @@
 <template>
-  <div class="new container">
-    <h1 class="page-header">New Event</h1>
-    <form v-on:submit="createEvent">
+  <div class="edit container">
+    <h1 class="page-header">Edit Event</h1>
+    <form v-on:submit="editEvent">
 
       <h4>Event Info</h4>
 
@@ -12,12 +12,12 @@
 
       <div class="form-group">
         <label>Date From</label>
-        <input type="date" name="dateFrom" placeholder="Date From" v-model="event.dateFrom">
+        <input type="text" name="dateFrom" placeholder="Date From" v-model="event.dateFrom.split('T')[0]">
       </div>
 
       <div class="form-group">
         <label>Date To</label>
-        <input type="date" name="dateTo" placeholder="Date To" v-model="event.dateTo">
+        <input type="text" name="dateTo" placeholder="Date To" v-model="event.dateTo.split('T')[0]">
       </div>
 
       <div class="form-group">
@@ -30,7 +30,7 @@
         <input type="text" name="description" placeholder="Description" v-model="event.description">
       </div>
 
-      <button type="submit" class="button btn-primary">Submit</button>
+      <button type="submit" class="button btn-primary">Update</button>
 
     </form>
   </div>
@@ -40,18 +40,25 @@
 <script>
 
 export default {
-  name: 'new',
+  name: 'edit',
   data () {
     return {
-      event: {}
+      event: {dateFrom: '', dateTo: ''}
     }
   },
   methods: {
-    createEvent(e){
+    fetchEvent(id) {
+      this.$http.get('http://localhost:7000/api/events/' + id)
+      .then(function(response){
+
+        this.event = response.body;
+      });
+    },
+    editEvent(e){
       if(!this.event.title || !this.event.dateFrom || !this.event.dateTo || !this.event.location || !this.event.description) {
-        console.log('Wrong!!!!!');
+
       } else {
-        let newEvent = {
+        let updateEvent = {
           title: this.event.title,
           dateFrom: this.event.dateFrom,
           dateTo: this.event.dateTo,
@@ -59,14 +66,17 @@ export default {
           description: this.event.description
         }
 
-        this.$http.post('http://localhost:7000/api/events', newEvent)
+        this.$http.put('http://localhost:7000/api/events/' + this.$route.params.id, updateEvent)
         .then(function(response) {
-          this.$router.push({path: '/', query: { alert: 'Event Added' }});
+          this.$router.push({path: '/', query: { alert: 'Event Edited' }});
         });
         e.preventDefault();
       }
       e.preventDefault();
     }
+  },
+  created: function() {
+    this.fetchEvent(this.$route.params.id);
   }
 }
 </script>

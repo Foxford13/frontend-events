@@ -15,6 +15,7 @@ import Events from './components/Events'
 import About from './components/About'
 import New from './components/New'
 import Show from './components/Show'
+import Edit from './components/Edit'
 
 
 Vue.use(VueResource)
@@ -32,6 +33,7 @@ const router = new VueRouter({
     {path: '/about', component: About},
     {path: '/new', component: New},
     {path: '/event/:id', component: Show},
+    {path: '/edit/:id', component: Edit}
   ]
 })
 

@@ -9,7 +9,7 @@
           <p>From: {{event.dateFrom.split('T')[0]}}</p>
           <p>To: {{event.dateTo.split('T')[0]}}</p>
           <p>{{event.location}}</p>
-          <td><router-link class="btn btn-default" v-bind:to="'/event/' + event.id">View</router-link></td>
+          <router-link class="btn btn-default" v-bind:to="'/event/' + event.id">View</router-link>
         </div>
       </div>
     </div>
@@ -64,8 +64,6 @@ export default {
   margin-top: 15px;
   padding: 15px;
   height:200px;
-
-
 }
 
 
