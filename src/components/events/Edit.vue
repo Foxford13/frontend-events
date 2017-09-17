@@ -1,41 +1,51 @@
 <template>
-  <div class="edit container">
-    <h1 class="page-header">Edit Event</h1>
-    <form v-on:submit="editEvent">
-    <Alert v-if="alert" v-bind:message="alert" />
-      <h4>Event Info</h4>
+  <div class="wrapper">
+    <section class="new">
+      <div class="row">
+        <div class="col-md-6 col-md-push-3">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <h1 class="page-header">Edit Event</h1>
+              <Alert v-if="alert" v-bind:message="alert" />
+              <form v-on:submit="editEvent()">
 
-      <div class="form-group">
-        <label>Event Name</label>
-        <input type="text" name="eventName" placeholder="Event name" v-model="event.title">
+                <h4>Event Info</h4>
+
+                <div class="form-group">
+                  <label>Event Name</label>
+                  <input class="form-control" type="text" name="eventName" placeholder="Event name" v-model="event.title">
+                </div>
+
+                <div class="form-group">
+                  <label>Date From</label>
+                  <input class="form-control" type="date" name="dateFrom" placeholder="Date From" v-model="event.dateFrom">
+                </div>
+
+                <div class="form-group">
+                  <label>Date To</label>
+                  <input class="form-control" type="date" name="dateTo" placeholder="Date To" v-model="event.dateTo">
+                </div>
+
+                <div class="form-group">
+                  <label>Location</label>
+                  <input class="form-control" type="text" name="location" placeholder="Location" v-model="event.location">
+                </div>
+
+                <div class="form-group">
+                  <label>Event Descriptionn</label>
+                  <textarea class="form-control" type="text" name="description" placeholder="Description" v-model="event.description"></textarea>
+                </div>
+
+                <button type="submit" class="button btn-primary">Submit</button>
+
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
-
-      <div class="form-group">
-        <label>Date From</label>
-        <input type="text" name="dateFrom" placeholder="Date From" v-model="event.dateFrom.split('T')[0]">
-      </div>
-
-      <div class="form-group">
-        <label>Date To</label>
-        <input type="text" name="dateTo" placeholder="Date To" v-model="event.dateTo.split('T')[0]">
-      </div>
-
-      <div class="form-group">
-        <label>Location</label>
-        <input type="text" name="location" placeholder="Location" v-model="event.location">
-      </div>
-
-      <div class="form-group">
-        <label>Event Descriptionn</label>
-        <input type="text" name="description" placeholder="Description" v-model="event.description">
-      </div>
-
-      <button type="submit" class="button btn-primary">Update</button>
-
-    </form>
+    </section>
   </div>
 </template>
-
 
 <script>
 import Alert from './Alert'
@@ -84,6 +94,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="sass">
+  @import '../../assets/css/bootstrap.css'
 
 </style>

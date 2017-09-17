@@ -16,6 +16,9 @@ import eventsNew from './components/events/New'
 import eventsShow from './components/events/Show'
 import eventsEdit from './components/events/Edit'
 
+import login from './components/auth/Login'
+import register from './components/auth/Register'
+
 
 Vue.use(VueResource)
 Vue.use(VueRouter)
@@ -28,16 +31,19 @@ const router = new VueRouter({
   mode: 'history',
   base: __dirname,
   routes: [
+    //can refactor it/put it into separate constant
     {path: '/', component: eventsIndex},
     {path: '/new', component: eventsNew},
     {path: '/event/:id', component: eventsShow},
-    {path: '/edit/:id', component: eventsEdit}
+    {path: '/edit/:id', component: eventsEdit},
+
+    {path: '/login', component: login},
+    {path: '/register', component: register}
+
+
   ]
 })
 
-
-
-/* eslint-disable no-new */
 new Vue({
   router,
   template: `
@@ -53,8 +59,16 @@ new Vue({
             <li class="nav-item"><router-link to="/" class="nav-link">Home </router-link></li>
           </ul>
 
-          <ul class="navbar-nav mr-autonavbar-right">
+          <ul class="navbar-nav collapse">
             <li class="nav-item"><router-link to="/new" class="nav-link">New</router-link></li>
+          </ul>
+
+          <ul class="navbar-nav mr-autonavbar-right">
+            <li class="nav-item"><router-link to="/login" class="nav-link">Login</router-link></li>
+          </ul>
+
+          <ul class="navbar-nav mr-autonavbar-right">
+            <li class="nav-item"><router-link to="/register" class="nav-link">Register</router-link></li>
           </ul>
 
         </div>

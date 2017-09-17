@@ -1,11 +1,11 @@
 <template>
   <div class="events container">
     <Alert v-if="alert" v-bind:message="alert" />
-    <h1 class="page-header">Events</h1>
+    <h1>Events</h1>
     <input class="form-control" placeholder="Search by title" v-model="filterInput" type="text" name="" value="">
     <br />
     <div class="row">
-      <div class="col col-md-3  col-md-offset-1 " v-for="event in filterBy(events, filterInput)">
+      <div class="col col-md-3" v-for="event in filterBy(events, filterInput)">
         <div class="event-card">
           <h5>{{event.title}}</h5>
           <p>From: {{event.dateFrom.split('T')[0]}}</p>
@@ -63,18 +63,8 @@ export default {
 </script
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
-
-.events {
-  margin-top: 50px;
-}
-.event-card {
-  border: 1px solid black;
-  border-radius: 10px;
-  margin-top: 15px;
-  padding: 15px;
-  height:200px;
-}
-
+<style lang="sass">
+  @import '../../assets/css/bootstrap.css'
+  @import '../../assets/css/style.css'
 
 </style>
