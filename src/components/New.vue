@@ -1,6 +1,7 @@
 <template>
   <div class="new container">
     <h1 class="page-header">New Event</h1>
+    <Alert v-if="alert" v-bind:message="alert" />
     <form v-on:submit="createEvent">
 
       <h4>Event Info</h4>
@@ -39,17 +40,20 @@
 
 <script>
 
+import Alert from './Alert'
+
 export default {
   name: 'new',
   data () {
     return {
-      event: {}
+      event: {},
+      alert: ''
     }
   },
   methods: {
     createEvent(e){
       if(!this.event.title || !this.event.dateFrom || !this.event.dateTo || !this.event.location || !this.event.description) {
-        console.log('Wrong!!!!!');
+        this.alert = 'Please fill in all required fields'
       } else {
         let newEvent = {
           title: this.event.title,
@@ -58,7 +62,6 @@ export default {
           location: this.event.location,
           description: this.event.description
         }
-
         this.$http.post('http://localhost:7000/api/events', newEvent)
         .then(function(response) {
           this.$router.push({path: '/', query: { alert: 'Event Added' }});
@@ -67,6 +70,9 @@ export default {
       }
       e.preventDefault();
     }
+  },
+  components: {
+    Alert
   }
 }
 </script>

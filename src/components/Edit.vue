@@ -2,7 +2,7 @@
   <div class="edit container">
     <h1 class="page-header">Edit Event</h1>
     <form v-on:submit="editEvent">
-
+    <Alert v-if="alert" v-bind:message="alert" />
       <h4>Event Info</h4>
 
       <div class="form-group">
@@ -38,25 +38,25 @@
 
 
 <script>
-
+import Alert from './Alert'
 export default {
   name: 'edit',
   data () {
     return {
-      event: {dateFrom: '', dateTo: ''}
+      event: {dateFrom: '', dateTo: ''},
+      alert: ''
     }
   },
   methods: {
     fetchEvent(id) {
       this.$http.get('http://localhost:7000/api/events/' + id)
       .then(function(response){
-
         this.event = response.body;
       });
     },
     editEvent(e){
       if(!this.event.title || !this.event.dateFrom || !this.event.dateTo || !this.event.location || !this.event.description) {
-
+       this.alert = 'Please fill in all the fields'
       } else {
         let updateEvent = {
           title: this.event.title,
@@ -65,7 +65,6 @@ export default {
           location: this.event.location,
           description: this.event.description
         }
-
         this.$http.put('http://localhost:7000/api/events/' + this.$route.params.id, updateEvent)
         .then(function(response) {
           this.$router.push({path: '/', query: { alert: 'Event Edited' }});
@@ -77,6 +76,9 @@ export default {
   },
   created: function() {
     this.fetchEvent(this.$route.params.id);
+  },
+  components: {
+    Alert
   }
 }
 </script>

@@ -12,7 +12,6 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
 import Events from './components/Events'
-import About from './components/About'
 import New from './components/New'
 import Show from './components/Show'
 import Edit from './components/Edit'
@@ -30,7 +29,6 @@ const router = new VueRouter({
   base: __dirname,
   routes: [
     {path: '/', component: Events},
-    {path: '/about', component: About},
     {path: '/new', component: New},
     {path: '/event/:id', component: Show},
     {path: '/edit/:id', component: Edit}
@@ -53,7 +51,6 @@ new Vue({
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
           <ul class="navbar-nav mr-auto">
             <li class="nav-item"><router-link to="/" class="nav-link">Home </router-link></li>
-            <li class="nav-item"><router-link to="/about" class="nav-link">About </router-link></li>
           </ul>
 
           <ul class="navbar-nav mr-autonavbar-right">

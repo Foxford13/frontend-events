@@ -2,8 +2,10 @@
   <div class="events container">
     <Alert v-if="alert" v-bind:message="alert" />
     <h1 class="page-header">Events</h1>
+    <input class="form-control" placeholder="Search by title" v-model="filterInput" type="text" name="" value="">
+    <br />
     <div class="row">
-      <div class="col col-md-3  col-md-offset-1 " v-for="event in events">
+      <div class="col col-md-3  col-md-offset-1 " v-for="event in filterBy(events, filterInput)">
         <div class="event-card">
           <h5>{{event.title}}</h5>
           <p>From: {{event.dateFrom.split('T')[0]}}</p>
@@ -26,7 +28,8 @@ export default {
   data () {
     return {
       events: [],
-      alert: ''
+      alert: '',
+      filterInput: ''
     }
   },
   methods: {
@@ -34,6 +37,13 @@ export default {
       this.$http.get('http://localhost:7000/api/events')
       .then(function(response){
         this.events = response.body;
+      });
+    },
+    filterBy(list, value) {
+      value = value.charAt(0).toUpperCase() + value.slice(1);
+      return list.filter(function(event) {
+        return event.title.indexOf(value) > -1
+
       });
     }
   },
