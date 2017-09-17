@@ -11,10 +11,10 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
-import Events from './components/Events'
-import New from './components/New'
-import Show from './components/Show'
-import Edit from './components/Edit'
+import eventsIndex from './components/events/Index'
+import eventsNew from './components/events/New'
+import eventsShow from './components/events/Show'
+import eventsEdit from './components/events/Edit'
 
 
 Vue.use(VueResource)
@@ -28,10 +28,10 @@ const router = new VueRouter({
   mode: 'history',
   base: __dirname,
   routes: [
-    {path: '/', component: Events},
-    {path: '/new', component: New},
-    {path: '/event/:id', component: Show},
-    {path: '/edit/:id', component: Edit}
+    {path: '/', component: eventsIndex},
+    {path: '/new', component: eventsNew},
+    {path: '/event/:id', component: eventsShow},
+    {path: '/edit/:id', component: eventsEdit}
   ]
 })
 
