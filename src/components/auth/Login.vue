@@ -58,14 +58,10 @@ export default {
         const authUser = {}
         this.$http.post('http://localhost:7000/api/login', loginUser)
         .then(function(response) {
-          console.log(response)
-          //do i need this, most of ti
-          // if (response.status === 200) {
-          //   authUser.acces_token = response.data.access_token
-          //   authUser.refresh_token = response.data.access_token
-          //   ///lookout for that!!
-          //   window.localStorage.setItem('authUser', JSON.stringify(authUser))
-          // }
+          console.log(response.body.token)
+          localStorage.setItem('token', response.body.token)
+    
+
           this.$router.push({path: '/', query: { alert: 'You are logged in' }});
         });
       }
@@ -82,3 +78,4 @@ export default {
   @import '../../assets/css/bootstrap.css'
 
 </style>
+this.infoError = false
