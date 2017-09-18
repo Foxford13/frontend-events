@@ -8,8 +8,8 @@
       <div class="col col-md-3" v-for="event in filterBy(events, filterInput)">
         <div class="event-card">
           <h5>{{event.title}}</h5>
-          <p>From: {{event.dateFrom.split('T')[0]}}</p>
-          <p>To: {{event.dateTo.split('T')[0]}}</p>
+          <p>From: {{event.dateFrom}}</p>
+          <p>To: {{event.dateTo}}</p>
           <p>{{event.location}}</p>
           <router-link class="btn btn-default" v-bind:to="'/event/' + event.id">View</router-link>
         </div>
@@ -28,6 +28,7 @@ export default {
   data () {
     return {
       events: [],
+      event: {dateFrom: '', dateTo: ''},
       alert: '',
       filterInput: ''
     }

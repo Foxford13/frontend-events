@@ -59,7 +59,7 @@ new Vue({
             <li class="nav-item"><router-link to="/" class="nav-link">Home </router-link></li>
           </ul>
 
-          <ul class="navbar-nav collapse">
+          <ul class="navbar-nav">
             <li class="nav-item"><router-link to="/new" class="nav-link">New</router-link></li>
           </ul>
 
