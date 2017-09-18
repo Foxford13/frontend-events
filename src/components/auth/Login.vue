@@ -8,16 +8,16 @@
               <h1 >Login User</h1>
 
               <form v-on:submit.prevent="loginFormSubmit()">
-              <Alert v-if="alert" v-bind:message="alert" />
+
 
                 <div class="form-group">
                   <label>Email</label>
-                  <input class="form-control" type="text" name="email" placeholder="Email" v-model="login.email">
+                  <input class="form-control" type="text" name="email" placeholder="Email" v-model="email">
                 </div>
 
                 <div class="form-group">
                   <label>Password</label>
-                  <input class="form-control" type="password" name="email" placeholder="Password" v-model="login.password">
+                  <input class="form-control" type="password" name="email" placeholder="Password" v-model="password">
                 </div>
 
                 <button type="submit" class="button btn-primary">Login</button>
@@ -33,49 +33,49 @@
 
 
 <script>
-import Alert from './Alert'
+import router from '@/main'
+import store from '@/store'
+
 export default {
   name: 'login',
   data () {
     return {
-      login: {
-        email: 'q',
-        password: 'q'
-      },
-      alert: ''
+      loader: false,
+      infoError: false,
+      email: '',
+      password: ''
+    }
+  },
+  beforeCreate () {
+    if (store.state.isLogged) {
+      this.$router.push('/')
     }
   },
   methods: {
-    loginFormSubmit(e){
-
-      if(!this.login.email || !this.login.password ) {
-       this.alert = 'Please fill in all the fields'
-      } else {
-        let loginUser = {
-          email: this.login.email,
-          password: this.login.password
-        }
-        const authUser = {}
-        this.$http.post('http://localhost:7000/api/login', loginUser)
-        .then(function(response) {
-          console.log(response.body.token)
-          localStorage.setItem('token', response.body.token)
-    
-
-          this.$router.push({path: '/', query: { alert: 'You are logged in' }});
-        });
-      }
+    loginFormSubmit () {
+      this.loader = true
+      this.infoError = false
+      this.$http.post('http://localhost:7000/api/login', {
+        email: this.email,
+        password: this.password
+      }).then((response) => {
+        localStorage.setItem('token', response.body.token)
+        store.commit('LOGIN_USER')
+          this.$router.push('/')
+      }, () => {
+        this.infoError = true
+        this.loader = false
+        this.password = ''
+      })
     }
-  },
-  components: {
-    Alert
   }
 }
+
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="sass">
   @import '../../assets/css/bootstrap.css'
 
-</style>
-this.infoError = false
+  </style>
+  this.infoError = false

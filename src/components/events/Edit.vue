@@ -18,12 +18,12 @@
 
                 <div class="form-group">
                   <label>Date From</label>
-                  <input class="form-control" type="date" name="dateFrom" placeholder="Date From" v-model="event.dateFrom">
+                  <input class="form-control" type="text" name="dateFrom" placeholder="Date From" v-model="event.dateFrom">
                 </div>
 
                 <div class="form-group">
                   <label>Date To</label>
-                  <input class="form-control" type="date" name="dateTo" placeholder="Date To" v-model="event.dateTo">
+                  <input class="form-control" type="text" name="dateTo" placeholder="Date To" v-model="event.dateTo">
                 </div>
 
                 <div class="form-group">
@@ -49,6 +49,8 @@
 
 <script>
 import Alert from './Alert'
+import router from '@/main'
+
 export default {
   name: 'edit',
   data () {
@@ -76,7 +78,9 @@ export default {
           description: this.event.description
         }
         this.$http.put('http://localhost:7000/api/events/' + this.$route.params.id, updateEvent)
+        console.log(this.$route.params.id)
         .then(function(response) {
+          console.log(response);
           this.$router.push({path: '/', query: { alert: 'Event Edited' }});
         });
         e.preventDefault();

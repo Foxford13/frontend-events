@@ -49,7 +49,7 @@
 
 
 <script>
-
+import router from '@/main'
 import Alert from './Alert'
 
 export default {

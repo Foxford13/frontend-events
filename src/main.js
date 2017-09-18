@@ -17,6 +17,7 @@ import eventsShow from './components/events/Show'
 import eventsEdit from './components/events/Edit'
 
 import login from './components/auth/Login'
+import logout from './components/auth/Logout'
 import register from './components/auth/Register'
 
 
@@ -33,16 +34,26 @@ const router = new VueRouter({
   routes: [
     //can refactor it/put it into separate constant
     {path: '/', component: eventsIndex},
-    {path: '/new', component: eventsNew},
+    {path: '/new', component: eventsNew, name: 'new'},
     {path: '/event/:id', component: eventsShow},
     {path: '/edit/:id', component: eventsEdit},
 
     {path: '/login', component: login},
+    {path: '/logout', component: logout},
     {path: '/register', component: register}
 
 
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  console.log(to)
+  next()
+
+})
+
+
+
 
 new Vue({
   router,
@@ -65,6 +76,10 @@ new Vue({
 
           <ul class="navbar-nav mr-autonavbar-right">
             <li class="nav-item"><router-link to="/login" class="nav-link">Login</router-link></li>
+          </ul>
+
+          <ul class="navbar-nav mr-autonavbar-right">
+            <li class="nav-item"><router-link to="/logout" class="nav-link">Logout</router-link></li>
           </ul>
 
           <ul class="navbar-nav mr-autonavbar-right">
