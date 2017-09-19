@@ -53,10 +53,11 @@ const router = new VueRouter({
 console.log('token' + ' ' + localStorage.getItem('token'))
 console.log('logged in' + ' ' + store.state.isLogged)
 
-const authUser = store.state.isLogged
-const authToken = localStorage.getItem('token')
 
 router.beforeEach((to, from, next) => {
+
+  const authUser = store.state.isLogged
+  const authToken = localStorage.getItem('token')
   if (to.meta.requiresAuth) {
     console.log('meta' + ' ' + to.meta.requiresAuth)
     if (authUser && authToken) {
