@@ -72,7 +72,11 @@ export default {
           location: this.event.location,
           description: this.event.description
         }
-        this.$http.post('http://localhost:7000/api/events', newEvent)
+        this.$http.post('http://localhost:7000/api/events', newEvent, {
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+          }
+        })
         /// HOW THE HELL THIS WORKS BUT IN EDIT I HAD TO CHANGE IT TO () => ?????
         .then(function(response) {
           this.$router.push({path: '/', query: { alert: 'Event Added' }});

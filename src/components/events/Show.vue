@@ -33,7 +33,11 @@ export default {
     },
     deleteEvent(id) {
       console.log(222);
-      this.$http.delete('http://localhost:7000/api/events/' + id)
+      this.$http.delete('http://localhost:7000/api/events/' + id, {
+        headers: {
+          Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+      })
       .then(function(response){
         this.$router.push({path: '/', query: {alert: 'Event Deleted'}})
       });

@@ -82,7 +82,11 @@ export default {
           location: this.event.location,
           description: this.event.description
         }
-        this.$http.put('http://localhost:7000/api/events/' + this.$route.params.id, updateEvent, store.getAuthHeader)
+        this.$http.put('http://localhost:7000/api/events/' + this.$route.params.id, updateEvent, {
+    headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+    }
+})
         .then(() => {
           this.$router.push({path: '/', query: { alert: 'Event Added' }});
         });
