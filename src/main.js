@@ -50,12 +50,10 @@ const router = new VueRouter({
 
   ]
 })
-console.log('token' + ' ' + localStorage.getItem('token'))
-console.log('logged in' + ' ' + store.state.isLogged)
+console.log('main ' + localStorage.getItem('token'))
 
 
 router.beforeEach((to, from, next) => {
-
   const authUser = store.state.isLogged
   const authToken = localStorage.getItem('token')
   if (to.meta.requiresAuth) {

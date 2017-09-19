@@ -50,6 +50,10 @@
 <script>
 import router from '@/main'
 import Alert from './Alert'
+import store from '@/store'
+
+
+console.log('Edit ' + store.getAuthHeader)
 
 
 export default {
@@ -78,15 +82,14 @@ export default {
           location: this.event.location,
           description: this.event.description
         }
-        this.$http.put('http://localhost:7000/api/events/' + this.$route.params.id, updateEvent)
+        this.$http.put('http://localhost:7000/api/events/' + this.$route.params.id, updateEvent, store.getAuthHeader)
         .then(() => {
           this.$router.push({path: '/', query: { alert: 'Event Added' }});
         });
-        // e.preventDefault();
       }
-      // e.preventDefault();
     }
   },
+
   created: function() {
     this.fetchEvent(this.$route.params.id);
   },

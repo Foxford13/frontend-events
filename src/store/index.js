@@ -19,8 +19,18 @@ const mutations = {
   }
 }
 
+const getAuthHeader = function() {
+  return {
+    'Authorization': 'Bearer ' + localStorage.getItem('token')
+  };
+};
+
+
+
+
 export default new Vuex.Store({
   strict: process.env.NODE_ENV !== 'production',
   state,
-  mutations
+  mutations,
+  getAuthHeader
 })
