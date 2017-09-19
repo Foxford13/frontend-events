@@ -6,8 +6,8 @@
     <p>{{event.location}}</p>
     <p>{{event.description}}</p>
     <p>{{event.id}}</p>
-    <button v-on:click="deleteEvent(event.id)" class="btn btn-danger" type="button" name="button">Delete</button>
-    <router-link class="btn btn-primary" onloadedmetadata=""v-bind:to="'/edit/' + event.id">Edit</router-link>
+    <button v-if="buttonsShow()" v-on:click="deleteEvent(event.id)" class="btn btn-danger" type="button" name="button">Delete</button>
+    <router-link v-if="buttonsShow()" class="btn btn-primary" onloadedmetadata=""v-bind:to="'/edit/' + event.id">Edit</router-link>
   </div>
 </template>
 
@@ -42,9 +42,16 @@ export default {
         this.$router.push({path: '/', query: {alert: 'Event Deleted'}})
       });
 
+    },
+    buttonsShow() {
+      const authUser = store.state.isLogged
+      const authToken = localStorage.getItem('token')
+      if (authUser && authToken) {
+        return true
+      }
     }
   },
-  created: function() {
+  created() {
     this.fetchEvent(this.$route.params.id);
   }
 }
