@@ -7,7 +7,7 @@
             <div class="panel-body">
               <h1 class="page-header">New Event</h1>
               <Alert v-if="alert" v-bind:message="alert" />
-              <form v-on:submit="createEvent()">
+              <form v-on:submit.prevent="createEvent()">
 
                 <h4>Event Info</h4>
 
@@ -73,12 +73,13 @@ export default {
           description: this.event.description
         }
         this.$http.post('http://localhost:7000/api/events', newEvent)
+        /// HOW THE HELL THIS WORKS BUT IN EDIT I HAD TO CHANGE IT TO () => ?????
         .then(function(response) {
           this.$router.push({path: '/', query: { alert: 'Event Added' }});
         });
-        e.preventDefault();
+        // e.preventDefault();
       }
-      e.preventDefault();
+      // e.preventDefault();
     }
   },
   components: {

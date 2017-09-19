@@ -25,32 +25,51 @@ Vue.use(VueResource)
 Vue.use(VueRouter)
 Vue.use(BootstrapVue);
 
+import store from '@/store'
 
 Vue.config.productionTip = false
+
+
+
+
 
 const router = new VueRouter({
   mode: 'history',
   base: __dirname,
   routes: [
     //can refactor it/put it into separate constant
-    {path: '/', component: eventsIndex},
-    {path: '/new', component: eventsNew, name: 'new'},
-    {path: '/event/:id', component: eventsShow},
-    {path: '/edit/:id', component: eventsEdit},
+    {path: '/', component: eventsIndex, name: 'index'},
+    {path: '/new', component: eventsNew, name: 'new', meta: { requiresAuth: true }},
+    {path: '/event/:id', component: eventsShow, name: 'show'},
+    {path: '/edit/:id', component: eventsEdit, meta: { requiresAuth: true }},
 
-    {path: '/login', component: login},
-    {path: '/logout', component: logout},
-    {path: '/register', component: register}
+    {path: '/login', component: login, name: 'login'},
+    {path: '/logout', component: logout, name: 'logout'},
+    {path: '/register', component: register, name: 'register' }
 
 
   ]
 })
+console.log('token' + ' ' + localStorage.getItem('token'))
+console.log('logged in' + ' ' + store.state.isLogged)
+
+const authUser = store.state.isLogged
+const authToken = localStorage.getItem('token')
 
 router.beforeEach((to, from, next) => {
-  console.log(to)
+  if (to.meta.requiresAuth) {
+    console.log('meta' + ' ' + to.meta.requiresAuth)
+    if (authUser && authToken) {
+      next()
+    } else {
+      next({name: 'login'})
+    }
+  }
   next()
 
 })
+
+
 
 
 

@@ -12,6 +12,10 @@
 </template>
 
 <script>
+import store from '@/store'
+
+const authUser = store.state.isLogged
+const authToken = localStorage.getItem('token')
 
 export default {
   name: 'show',

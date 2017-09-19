@@ -7,7 +7,7 @@
             <div class="panel-body">
               <h1 class="page-header">Edit Event</h1>
               <Alert v-if="alert" v-bind:message="alert" />
-              <form v-on:submit="editEvent()">
+              <form v-on:submit.prevent="editEvent()">
 
                 <h4>Event Info</h4>
 
@@ -48,8 +48,9 @@
 </template>
 
 <script>
-import Alert from './Alert'
 import router from '@/main'
+import Alert from './Alert'
+
 
 export default {
   name: 'edit',
@@ -78,14 +79,12 @@ export default {
           description: this.event.description
         }
         this.$http.put('http://localhost:7000/api/events/' + this.$route.params.id, updateEvent)
-        console.log(this.$route.params.id)
-        .then(function(response) {
-          console.log(response);
-          this.$router.push({path: '/', query: { alert: 'Event Edited' }});
+        .then(() => {
+          this.$router.push({path: '/', query: { alert: 'Event Added' }});
         });
-        e.preventDefault();
+        // e.preventDefault();
       }
-      e.preventDefault();
+      // e.preventDefault();
     }
   },
   created: function() {

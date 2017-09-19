@@ -64,17 +64,18 @@ export default {
   },
   methods: {
     registerFormSubmit () {
-      this.loader = true
-      this.infoError = false
-      this.$http.post('http://localhost:7000/api/register', {
+      const userData = {
         email: this.email,
         password: this.password,
         username: this.username,
         passwordConfirmation: this.passwordConfirmation
-      }).then((response) => {
-        localStorage.setItem('token', response.body.token)
-        store.commit('LOGIN_USER')
-          this.$router.push('/')
+      }
+      this.loader = true
+      this.infoError = false
+      this.$http.post('http://localhost:7000/api/register', userData )
+      .then(() => {
+
+          this.$router.push('/login')
       }, () => {
         this.infoError = true
         this.loader = false
@@ -91,4 +92,3 @@ export default {
   @import '../../assets/css/bootstrap.css'
 
   </style>
-  this.infoError = false

@@ -41,7 +41,8 @@ export default {
       });
     },
     filterBy(list, value) {
-      value = value.charAt(0).toUpperCase() + value.slice(1);
+      //its case sensitive, change that
+      value = value.charAt(0).toLowerCase() + value.slice(1);
       return list.filter(function(event) {
         return event.title.indexOf(value) > -1
 
