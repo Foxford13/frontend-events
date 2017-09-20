@@ -5,8 +5,10 @@
         <div class="col-md-6 col-md-push-3">
           <div class="panel panel-default">
             <div class="panel-body">
+
               <h1 class="page-header">New Event</h1>
               <Alert v-if="alert" v-bind:message="alert" />
+
               <form v-on:submit.prevent="createEvent()">
 
                 <h4>Event Info</h4>
@@ -52,6 +54,7 @@
 import router from '@/main'
 import Alert from '../interceptors/Alert';
 
+
 export default {
   name: 'new',
   data () {
@@ -78,7 +81,7 @@ export default {
             Authorization: 'Bearer ' + localStorage.getItem('token')
           }
         })
-        /// HOW THE HELL THIS WORKS BUT IN EDIT I HAD TO CHANGE IT TO () => ?????
+        /// HOW THIS WORKS BUT IN EDIT I HAD TO CHANGE IT TO () => ?????
         .then(function(response) {
           this.$router.push({path: '/', query: { alert: 'Event Added' }});
         });

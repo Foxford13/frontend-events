@@ -5,10 +5,11 @@
         <div class="col-md-6 col-md-push-3">
           <div class="panel panel-default">
             <div class="panel-body">
+
               <h1 >Login User</h1>
               <Alert v-if="alert" v-bind:message="alert" />
+              
               <form v-on:submit.prevent="loginFormSubmit()">
-
 
                 <div class="form-group">
                   <label>Email</label>
@@ -37,9 +38,6 @@
 import router from '@/main'
 import store from '@/store'
 import Alert from '../interceptors/Alert';
-
-
-
 
 export default {
   name: 'login',

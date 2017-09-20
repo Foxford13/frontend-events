@@ -5,6 +5,7 @@
         <div class="col-md-6 col-md-push-3">
           <div class="panel panel-default">
             <div class="panel-body">
+
               <h1 class="page-header">Edit Event</h1>
               <Alert v-if="alert" v-bind:message="alert" />
               <form v-on:submit.prevent="editEvent()">
@@ -100,5 +101,4 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="sass">
   @import '../../assets/css/bootstrap.css'
-
 </style>

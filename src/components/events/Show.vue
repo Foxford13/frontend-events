@@ -1,13 +1,18 @@
 <template>
   <div class="show container">
+
     <h1 >{{event.title}}</h1>
     <p>From: {{event.dateFrom.split('T')[0]}}</p>
     <p>To: {{event.dateTo.split('T')[0]}}</p>
     <p>Event Location: {{event.location}}</p>
     <p>Description: {{event.description}}</p>
     <p>Created by: {{event.createdBy.username}}</p>
-    <button v-if="buttonsShow()" v-on:click="deleteEvent(event.id)" class="btn btn-danger" type="button" name="button">Delete</button>
-    <router-link v-if="buttonsShow()" class="btn btn-primary" onloadedmetadata="" v-bind:to="'/edit/' + event.id">Edit</router-link>
+
+    <button v-if="userLoggedIn()" v-on:click="deleteEvent(event.id)" class="btn btn-danger" type="button" name="button">Delete</button>
+
+    <router-link v-if="userLoggedIn()" class="btn btn-primary" onloadedmetadata="" v-bind:to="'/edit/' +
+    event.id">Edit</router-link>
+
   </div>
 </template>
 
@@ -47,7 +52,7 @@ export default {
       });
 
     },
-    buttonsShow() {
+    userLoggedIn() {
       const authUser = store.state.isLogged
       const authToken = localStorage.getItem('token')
       if (authUser && authToken) {

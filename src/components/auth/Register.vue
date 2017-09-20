@@ -5,10 +5,10 @@
         <div class="col-md-6 col-md-push-3">
           <div class="panel panel-default">
             <div class="panel-body">
+
               <h1 >Register User</h1>
 
               <form v-on:submit.prevent="registerFormSubmit()">
-
 
                 <div class="form-group">
                   <label>Email</label>
@@ -29,7 +29,7 @@
                   <input class="form-control" type="password" name="email" placeholder="Password Confirmation" v-model="passwordConfirmation">
                 </div>
 
-                  <button class="btn btn-primary" type="submit" name="button">Login</button>
+                <button class="btn btn-primary" type="submit" name="button">Login</button>
 
               </form>
             </div>
@@ -76,7 +76,7 @@ export default {
       this.$http.post('http://localhost:7000/api/register', userData )
       .then(() => {
 
-          this.$router.push('/login')
+        this.$router.push('/login')
       }, () => {
         this.infoError = true
         this.loader = false
@@ -91,4 +91,4 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="sass">
   @import '../../assets/css/bootstrap.css'
-</style>
+  </style>
