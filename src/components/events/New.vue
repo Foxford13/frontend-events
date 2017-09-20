@@ -50,7 +50,7 @@
 
 <script>
 import router from '@/main'
-import Alert from './Alert'
+import Alert from '../interceptors/Alert';
 
 export default {
   name: 'new',
@@ -70,7 +70,8 @@ export default {
           dateFrom: this.event.dateFrom,
           dateTo: this.event.dateTo,
           location: this.event.location,
-          description: this.event.description
+          description: this.event.description,
+          createdBy: this.event.createdBy
         }
         this.$http.post('http://localhost:7000/api/events', newEvent, {
           headers: {
@@ -81,9 +82,8 @@ export default {
         .then(function(response) {
           this.$router.push({path: '/', query: { alert: 'Event Added' }});
         });
-        // e.preventDefault();
       }
-      // e.preventDefault();
+
     }
   },
   components: {

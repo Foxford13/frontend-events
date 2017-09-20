@@ -49,12 +49,7 @@
 
 <script>
 import router from '@/main'
-import Alert from './Alert'
-import store from '@/store'
-
-
-console.log('Edit ' + store.getAuthHeader)
-
+import Alert from '../interceptors/Alert';
 
 export default {
   name: 'edit',
@@ -73,7 +68,7 @@ export default {
     },
     editEvent(e){
       if(!this.event.title || !this.event.dateFrom || !this.event.dateTo || !this.event.location || !this.event.description) {
-       this.alert = 'Please fill in all the fields'
+        this.alert = 'Please fill in all the fields'
       } else {
         let updateEvent = {
           title: this.event.title,
@@ -83,18 +78,17 @@ export default {
           description: this.event.description
         }
         this.$http.put('http://localhost:7000/api/events/' + this.$route.params.id, updateEvent, {
-    headers: {
-        Authorization: 'Bearer ' + localStorage.getItem('token')
-    }
-})
+          headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+          }
+        })
         .then(() => {
-          this.$router.push({path: '/', query: { alert: 'Event Added' }});
+          this.$router.push({path: '/', query: { alert: 'Event Updated' }});
         });
       }
     }
   },
-
-  created: function() {
+  created(){
     this.fetchEvent(this.$route.params.id);
   },
   components: {

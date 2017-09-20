@@ -6,7 +6,7 @@
           <div class="panel panel-default">
             <div class="panel-body">
               <h1 >Login User</h1>
-
+              <Alert v-if="alert" v-bind:message="alert" />
               <form v-on:submit.prevent="loginFormSubmit()">
 
 
@@ -20,7 +20,8 @@
                   <input class="form-control" type="password" name="email" placeholder="Password" v-model="password">
                 </div>
 
-                <button type="submit" class="button btn-primary">Login</button>
+
+                <button class="btn btn-primary" type="submit" name="button">Login</button>
 
               </form>
             </div>
@@ -35,6 +36,10 @@
 <script>
 import router from '@/main'
 import store from '@/store'
+import Alert from '../interceptors/Alert';
+
+
+
 
 export default {
   name: 'login',
@@ -43,7 +48,9 @@ export default {
       loader: false,
       infoError: false,
       email: '',
-      password: ''
+      password: '',
+      username: '',
+      alert: ''
     }
   },
   beforeCreate () {
@@ -52,22 +59,26 @@ export default {
     }
   },
   methods: {
-    loginFormSubmit () {
-      this.loader = true
-      this.infoError = false
-      this.$http.post('http://localhost:7000/api/login', {
-        email: this.email,
-        password: this.password
-      }).then((response) => {
-        localStorage.setItem('token', response.body.token)
-        store.commit('LOGIN_USER')
-          this.$router.push('/')
-      }, () => {
-        this.infoError = true
-        this.loader = false
-        this.password = ''
-      })
+    loginFormSubmit (response) {
+      if(!this.email || !this.password) {
+        this.alert = 'Please fill in all required fields'
+      } else {
+        this.$http.post('http://localhost:7000/api/login', {
+          email: this.email,
+          password: this.password
+        }, response)
+
+        .then((response) => {
+          localStorage.setItem('token', response.body.token)
+          store.commit('LOGIN_USER')
+          this.$router.push({path: '/', query: { alert: 'Welcome back ' + this.email}})
+
+        })
+      }
     }
+  },
+  components: {
+    Alert
   }
 }
 
@@ -77,5 +88,4 @@ export default {
 <style lang="sass">
   @import '../../assets/css/bootstrap.css'
 
-  </style>
-  this.infoError = false
+</style>

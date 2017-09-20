@@ -3,9 +3,9 @@
     <h1 >{{event.title}}</h1>
     <p>From: {{event.dateFrom.split('T')[0]}}</p>
     <p>To: {{event.dateTo.split('T')[0]}}</p>
-    <p>Event Location: {{event.location}}</p>
-    <p>Description: {{event.description}}</p>
-    <p>Created by: {{event.createdBy.username}}</p>
+    <p>{{event.location}}</p>
+    <p>{{event.description}}</p>
+    <p>{{event.id}}</p>
     <button v-if="buttonsShow()" v-on:click="deleteEvent(event.id)" class="btn btn-danger" type="button" name="button">Delete</button>
     <router-link v-if="buttonsShow()" class="btn btn-primary" onloadedmetadata="" v-bind:to="'/edit/' + event.id">Edit</router-link>
   </div>
@@ -21,11 +21,7 @@ export default {
   name: 'show',
   data () {
     return {
-      event: {
-        dateFrom: '',
-        dateTo: '',
-        createdBy: ''
-      }
+      event: {dateFrom: '', dateTo: ''}
     }
   },
   methods: {

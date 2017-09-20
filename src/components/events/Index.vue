@@ -8,10 +8,11 @@
       <div class="col col-md-3" v-for="event in filterBy(events, filterInput)">
         <div class="event-card">
           <h5>{{event.title}}</h5>
-          <p>From: {{event.dateFrom}}</p>
-          <p>To: {{event.dateTo}}</p>
+          <p>From: {{event.dateFrom.split('T')[0]}}</p>
+          <p>To: {{event.dateTo.split('T')[0]}}</p>
           <p>{{event.location}}</p>
           <router-link class="btn btn-default" v-bind:to="'/event/' + event.id">View</router-link>
+
         </div>
       </div>
     </div>
@@ -20,7 +21,8 @@
 
 <script>
 
-import Alert from './Alert';
+import Alert from '../interceptors/Alert'
+
 
 
 export default {
@@ -49,7 +51,7 @@ export default {
       });
     }
   },
-  created: function(){
+  created(){
     if(this.$route.query.alert){
       this.alert = this.$route.query.alert;
     }
@@ -62,9 +64,8 @@ export default {
     Alert
   }
 }
-</script
+</script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="sass">
   @import '../../assets/css/bootstrap.css'
   @import '../../assets/css/style.css'

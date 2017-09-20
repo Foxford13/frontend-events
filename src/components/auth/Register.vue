@@ -5,7 +5,7 @@
         <div class="col-md-6 col-md-push-3">
           <div class="panel panel-default">
             <div class="panel-body">
-              <h1 >Login User</h1>
+              <h1 >Register User</h1>
 
               <form v-on:submit.prevent="registerFormSubmit()">
 
@@ -29,7 +29,7 @@
                   <input class="form-control" type="password" name="email" placeholder="Password Confirmation" v-model="passwordConfirmation">
                 </div>
 
-                <button type="submit" class="button btn-primary">Login</button>
+                  <button class="btn btn-primary" type="submit" name="button">Login</button>
 
               </form>
             </div>
@@ -44,6 +44,7 @@
 <script>
 import router from '@/main'
 import store from '@/store'
+import Alert from '../interceptors/Alert';
 
 export default {
   name: 'register',
@@ -90,5 +91,4 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="sass">
   @import '../../assets/css/bootstrap.css'
-
-  </style>
+</style>
