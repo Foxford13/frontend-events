@@ -65,11 +65,9 @@ export default {
           email: this.email,
           password: this.password
         }, response)
-        .catch(response => {
-        alert(response.status, response.body.error, "error")
-
+        .catch((response) => {
+        this.alert = response.body.message
         })
-
         .then((response) => {
           localStorage.setItem('token', response.body.token)
           store.commit('LOGIN_USER')
