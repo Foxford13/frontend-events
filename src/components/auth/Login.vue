@@ -8,7 +8,7 @@
 
               <h1 >Login User</h1>
               <Alert v-if="alert" v-bind:message="alert" />
-              
+
               <form v-on:submit.prevent="loginFormSubmit()">
 
                 <div class="form-group">
@@ -65,6 +65,10 @@ export default {
           email: this.email,
           password: this.password
         }, response)
+        .catch(response => {
+        alert(response.status, response.body.error, "error")
+
+        })
 
         .then((response) => {
           localStorage.setItem('token', response.body.token)
