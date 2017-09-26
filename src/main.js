@@ -28,7 +28,7 @@ Vue.use(VueRouter)
 Vue.use(BootstrapVue);
 
 
-
+//any user has acess to secure route if they are authenticated and have a token
 Vue.config.productionTip = false
 
 
