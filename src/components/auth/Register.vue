@@ -7,6 +7,7 @@
             <div class="panel-body">
 
               <h1 >Register User</h1>
+              <Alert v-if="alert" v-bind:message="alert" />
 
               <form v-on:submit.prevent="registerFormSubmit()">
 
@@ -29,7 +30,7 @@
                   <input class="form-control" type="password" name="email" placeholder="Password Confirmation" v-model="passwordConfirmation">
                 </div>
 
-                <button class="btn btn-primary" type="submit" name="button">Login</button>
+                <button class="btn btn-primary" type="submit" name="button">Register</button>
 
               </form>
             </div>
@@ -55,7 +56,8 @@ export default {
       email: '',
       username: '',
       password: '',
-      passwordConfirmation: ''
+      passwordConfirmation: '',
+      alert: ''
     }
   },
   beforeCreate () {
@@ -73,22 +75,32 @@ export default {
       }
       this.loader = true
       this.infoError = false
-      this.$http.post('http://localhost:7000/api/register', userData )
-      .then(() => {
-
-        this.$router.push('/login')
-      }, () => {
-        this.infoError = true
-        this.loader = false
-        this.password = ''
-      })
+      if(!this.email || !this.password || !this.username || (this.password != this.passwordConfirmation)) {
+        this.alert = 'Please fill in all required fields'
+      } else {
+        this.$http.post('http://localhost:7000/api/register', userData)
+        .catch((response) => {
+          console.log(response)
+        })
+        .then(() => {
+          this.$router.push('/login')
+        }, () => {
+          this.infoError = true
+          this.loader = false
+          this.password = ''
+        })
+      }
     }
+
+  },
+  components: {
+    Alert
   }
 }
-
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style lang="sass">
   @import '../../assets/css/bootstrap.css'
+  @import '../../assets/css/style.css'
   </style>
